@@ -6,7 +6,7 @@ const createPDF = require("./workers/puppeteerPDF.js");
 //Init App
 const app = express();
 
-//Init app.use
+//Init app middleware
 app.use(express.json());
 
 //Create HTML to PDF Route
@@ -17,17 +17,19 @@ app.get("/pdf", async (req, res, next) => {
   try {
     const pdf = await createPDF(url);
 
+    //Return error + next if pdf cannot be created
     if (!pdf || pdf === undefined) {
       res.status(400).json({ sucess: false });
       return next;
     }
 
-    //Send Buffer generated with createPDF
+    //Send Buffer generated with createPDF if successful
     res.set({
       "Content-Type": "application/pdf",
       "Content-Length": pdf.length,
     });
 
+    //Return PDF to client
     res.status(200).send(pdf);
   } catch (err) {
     console.log(err);

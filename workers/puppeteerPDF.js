@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-//Init Puppeteer job
+//Init Puppeteer job to fetch
 const createPDF = async (url) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
