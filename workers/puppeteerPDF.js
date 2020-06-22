@@ -1,13 +1,13 @@
-const puppeteer = require("puppeteer-core");
+const puppeteer = require("puppeteer");
 
 //Init Puppeteer job
-const createPDF = async () => {
+const createPDF = async (url) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://github.com/juliusvdw", {
+  await page.goto(`${url}`, {
     waitUntil: "networkidle0",
   });
-  const pdf = await page.pdf({ path: "page.pdf", format: "A4" });
+  const pdf = await page.pdf({ format: "A4" });
 
   console.log("PDF generated");
   await browser.close();
