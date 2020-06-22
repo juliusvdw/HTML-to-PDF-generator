@@ -8,7 +8,7 @@ const app = express();
 
 //Create HTML to PDF Route
 //Route is created on Server file, as there is only one route
-app.get("/pdf/:websiteLink", async (req, res) => {
+app.get("/pdf", async (req, res) => {
   try {
     const pdf = await createPDF();
 

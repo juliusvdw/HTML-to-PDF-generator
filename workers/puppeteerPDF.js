@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
 
 //Init Puppeteer job
 const createPDF = async () => {
@@ -7,10 +7,11 @@ const createPDF = async () => {
   await page.goto("https://github.com/juliusvdw", {
     waitUntil: "networkidle0",
   });
-  const pdf = await page.pdf({ format: "A4" });
+  const pdf = await page.pdf({ path: "page.pdf", format: "A4" });
 
+  console.log("PDF generated");
   await browser.close();
   return pdf;
 };
 
-modules.export = createPDF;
+module.exports = createPDF;
