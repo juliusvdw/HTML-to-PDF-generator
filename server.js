@@ -17,7 +17,7 @@ app.get("/pdf", async (req, res, next) => {
   try {
     const pdf = await createPDF(url);
 
-    //Return error + next if pdf cannot be created
+    //Send error + return next if pdf cannot be created
     if (!pdf || pdf === undefined) {
       res.status(400).json({ sucess: false });
       return next;
@@ -29,7 +29,7 @@ app.get("/pdf", async (req, res, next) => {
       "Content-Length": pdf.length,
     });
 
-    //Return PDF to client
+    //Send PDF to client
     res.status(200).send(pdf);
   } catch (err) {
     console.log(err);
@@ -37,4 +37,7 @@ app.get("/pdf", async (req, res, next) => {
   }
 });
 
-app.listen(5000, console.log("Server has started on Port 5000"));
+//Declare PORT var
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log("Server has started on Port 5000"));
